@@ -1,0 +1,40 @@
+{
+    "links": {
+        "self": "http://api.yochanan-beck.local/education/1"
+    },
+    "data": {
+        "type": "education",
+        "id": "1",
+        "attributes": {
+            "status": "200",
+            "summary":
+                "get info about a specific school including location, degree's, and years at that school",
+            "description": "get info about a specific school",
+            "school": {
+                "name": "Beth Medrash Govoha",
+                "location": {
+                    "address": "617 6th Street",
+                    "city": "Lakewood",
+                    "state": "NJ",
+                    "zip": "08701"
+                },
+                "total_semesters": "20",
+                "semesters_per_year": "2"
+            }
+        },
+        "relationships": {
+            "author": {
+                "links": {
+                    "self": "/education/1"
+                },
+                "data": {
+                    "type": "education",
+                    "id": "1"
+                }
+            }
+        }
+    },
+    "meta": {
+        "author": "Yochanan Beck"
+    }
+}
