@@ -6,7 +6,6 @@
         "type": "education",
         "id": "1",
         "attributes": {
-            "status": "200",
             "summary":
                 "get info about a specific school including location, degree's, and years at that school",
             "description": "get info about a specific school",
@@ -19,22 +18,47 @@
                     "zip": "08701"
                 },
                 "total_semesters": "20",
-                "semesters_per_year": "2"
-            }
-        },
-        "relationships": {
-            "author": {
-                "links": {
-                    "self": "/education/1"
-                },
-                "data": {
-                    "type": "education",
-                    "id": "1"
-                }
+                "semesters_per_year": "2",
+                "degree": "Bachelors Degree in Talmudic Law"
             }
         }
     },
     "meta": {
         "author": "Yochanan Beck"
-    }
+    },
+
+    "": {
+        "links": {
+            "self": "http://api.yochanan-beck.local"
+        },
+        "data": {
+            "type": "education",
+            "id": "1",
+            "attributes": {
+                "summary": "get a collection of all schools",
+                "description":
+                    "a collection of all schools with a url to get more info about a specific school",
+                "schools": [
+                    {
+                        "id": "1",
+                        "name": "Beth Medrash Govoha"
+                    },
+                    {
+                        "id": "2",
+                        "name": "The School of Evolving Technologies (PCS)"
+                    }
+                ]
+            }
+        },
+        "meta": {
+            "author": "Yochanan Beck"
+        }
+    },
+    "errors": [
+        {
+            "status": "404",
+            "title": "Item not found.",
+            "detail": "please check the documentation for the proper path."
+        }
+    ]
 }

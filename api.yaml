@@ -1,44 +1,104 @@
 openapi: 3.0.1
 info:
-  title: yochanan Beck api
+  title: Yochanan Beck api
   version: '1'
   description: get information about yochanan beck
 servers:
   - url: 'http://api.yochanan-beck.local'
 paths:
-  /:
-    get:
-      summary: get a list of categories and allow the user to get more information by using the id
-      description: get all resource categories
-      operationId: '1'
-      responses:
-        '200':
-          description: return all resource categories
-        default:
-          description: Unexpected error
   /personal-info:
     get:
-      summary: get information about yochanan beck including email address,  job and links
+      tags: 
+        - info
+      summary: 'get information about yochanan beck including email address,  job and links'
       description: get information about yochanan beck
       operationId: '2'
       responses:
         '200':
-          description: return information about yochanan beck
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                 data:
+                  type: object
+                  properties:
+                    type: 
+                      type: string
+                    id:
+                      type: string
+                      description: The id for this field
+                    attributes:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: Name (yochanan beck)
+                        email:
+                          type: string
+                          description: yochanan beck's email
+                        job:
+                          type: string
+                          description: yochanan beck's current job
+                        links:
+                          type: object
+                          description: yochanan beck's online activity
+                          properties:
+                            website:
+                              type: string
+                            repo:
+                              type: string
+                            linkedin:
+                              type: string
         default:
           description: Unexpected error
+        '404':
+          description: object not found
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errors'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errors'
+          
   /education:
     get:
+      tags: 
+        - education
       summary: get a list of schools and allow the user to get more information by using the id
       description: get all education categories
       operationId: '3'
       responses:
         '200':
-          description: return all schools
+          description: return an array of schools
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/top'
         default:
           description: Unexpected error
+        '404':
+          description: object not found
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errors'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errors'
   '/education/{id}':
     get:
-      summary: get info about a specific school including location, degree's, and years at that school
+      tags: 
+        - education
+      summary: 'get info about a specific school including location, degrees, and years at that school'
       description: get info about a specific school
       operationId: '4'
       parameters:
@@ -52,20 +112,92 @@ paths:
       responses:
         '200':
           description: return info about a specific school
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                 data:
+                  type: object
+                  properties:
+                    type: 
+                      type: string
+                    id:
+                      type: string
+                    attributes:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        location:
+                          type: object
+                          description: Location of yochanan beck's school
+                          properties:
+                            address:
+                              type: string
+                            city:
+                              type: string
+                            state:
+                              type: string
+                            zip:
+                              type: string
+                        total_semesters:
+                          type: string
+                          description: total semesters that yochanan studied at this schoolo
+                        semesters_per_year:
+                          type: string
+                        degree:
+                          type: string
+                        date_started: 
+                          type: string
+                        date_ended: 
+                          type: string
         default:
           description: Unexpected error
+        '404':
+          description: object not found
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errors'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errors'
   /projects:
     get:
+      tags: 
+        - projects
       summary: get a list of projects and allow the user to get more information by using the id
       description: get a list of all projects
       operationId: '5'
       responses:
         '200':
           description: return all resource categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/top'
         default:
           description: Unexpected error
+        '404':
+          description: object not found
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errors'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errors'
   '/projects/{id}':
     get:
+      tags: 
+        - projects
       summary: 'get info about a specific project including languages, and dates'
       description: get info about a specific project
       operationId: '6'
@@ -80,20 +212,75 @@ paths:
       responses:
         '200':
           description: return info about a specific project
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                 data:
+                  type: object
+                  properties:
+                    type: 
+                      type: string
+                    id:
+                      type: string
+                    attributes:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        languages_used:
+                          type: string
+                        status:
+                          type: string
         default:
           description: Unexpected error
+        '404':
+          description: object not found
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errors'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errors'
   /employment:
     get:
+      tags:
+        - jobs
       summary: get a list of jobs and allow the user to get more information by using the id
       description: get info about yochanan beck's jobs
       operationId: '7'
       responses:
         '200':
           description: return info about yochanan beck's jobs
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/top'
         default:
           description: Unexpected error
+        '404':
+          description: object not found
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errors'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errors'
   '/employment/{id}':
     get:
+      tags: 
+        - jobs
       summary: 'get info about a specific job including location, and dates, and description'
       description: get info about a specific job
       operationId: '8'
@@ -108,6 +295,87 @@ paths:
       responses:
         '200':
           description: return info about a specific job
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                 data:
+                  type: object
+                  properties:
+                    type: 
+                      type: string
+                    id:
+                      type: string
+                    attributes:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        location:
+                          type: object
+                          properties:
+                            address:
+                              type: string
+                            city:
+                              type: string
+                            state:
+                              type: string
+                            zip:
+                              type: string
+                        description:
+                          type: string
+                        date_started: 
+                          type: string
+                        date_ended: 
+                          type: string
         default:
           description: Unexpected error
+        '404':
+          description: object not found
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errors'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errors'
+          
+components:
+  schemas:
+    errors:
+      type: array
+      items:
+        type: object
+        properties:
+          status:
+            type: string
+          source:
+            type: object
+            properties:
+              pointer:
+                type: string
+          detail:
+            type: string
+    top:
+      type: object
+      properties:
+         data:
+          type: array
+          items:
+            type: object
+            properties:
+              type: 
+                type: string
+              id:
+                type: string
+              attributes:
+                type: object
+                properties:
+                  name:
+                    type: string
+        
 
