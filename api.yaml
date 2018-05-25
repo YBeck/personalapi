@@ -377,5 +377,3 @@ components:
                 properties:
                   name:
                     type: string
-        
-
