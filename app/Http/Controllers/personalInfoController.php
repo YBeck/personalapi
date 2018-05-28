@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\PersonalInfo as InfoModel;
+use App\Http\Resources\PersonalInfo as InfoResource;
 
 class personalInfoController extends Controller
 {
@@ -13,7 +15,7 @@ class personalInfoController extends Controller
      */
     public function index()
     {
-        echo "personal info!";
+        return new InfoResource(InfoModel::find(1));
     }
 
 }

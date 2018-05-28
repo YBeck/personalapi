@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\employment;
+use App\Http\Resources\Employments as employmentsResource;
+use App\Http\Resources\Employment as employmentResource;
 
 class employmentController extends Controller
 {
@@ -13,7 +16,7 @@ class employmentController extends Controller
      */
     public function index()
     {
-        echo "all employment!";
+       return employmentsResource::collection(employment::all());
     }
 
     /**
@@ -24,7 +27,7 @@ class employmentController extends Controller
      */
     public function show($id)
     {
-        echo "employment/ " . $id;
+        return new employmentResource(employment::find($id));
     }
 
 }

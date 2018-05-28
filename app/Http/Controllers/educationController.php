@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Education;
+use App\Http\Resources\Educations as educationsResource;
+use App\Http\Resources\Education  as educationResource;
 
 class educationController extends Controller
 {
@@ -13,7 +16,7 @@ class educationController extends Controller
      */
     public function index()
     {
-        echo "all education!";
+        return educationsResource::collection(Education::all());
     }
 
 
@@ -25,7 +28,7 @@ class educationController extends Controller
      */
     public function show($id)
     {
-        echo "education/ " . $id;
+        return new educationResource(Education::find($id));
     }
 
 }

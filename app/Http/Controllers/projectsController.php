@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\projects;
+use App\Http\Resources\Projects as projectsResource;
+use App\Http\Resources\Project as projectResource;
 
 class projectsController extends Controller
 {
@@ -13,7 +16,7 @@ class projectsController extends Controller
      */
     public function index()
     {
-        echo "all projects!";
+        return projectsResource::collection(projects::all());
     }
 
     /**
@@ -24,7 +27,7 @@ class projectsController extends Controller
      */
     public function show($id)
     {
-        echo "projects/ " . $id;
+        return new projectResource(projects::find($id));
     }
 
 }
