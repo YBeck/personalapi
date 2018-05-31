@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Foundation\Exceptions;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler 
 {
@@ -46,6 +48,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception); 
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return response()->json(['errors' => [
+                'status' => '405',
+                'source' => [
+                    'pointer' => $_SERVER['REQUEST_URI']
+                ],
+                'details' => 'Method Not Allowed.'
+            ]], 405);
+        }
+        return parent::render($request, $exception);
     }
 }

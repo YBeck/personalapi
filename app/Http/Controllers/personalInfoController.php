@@ -15,7 +15,7 @@ class personalInfoController extends Controller
      */
     public function index()
     {
-        return new InfoResource(InfoModel::find(1));
+        return new InfoResource(InfoModel::findOrFail(1));
     }
 
 }

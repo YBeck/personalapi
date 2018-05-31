@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\projects;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\Projects as projectsResource;
 use App\Http\Resources\Project as projectResource;
 
@@ -26,8 +27,20 @@ class projectsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        return new projectResource(projects::find($id));
+     {
+        try{
+            projects::findOrFail($id);     
+        }
+        catch(ModelNotFoundException $e){
+            return response()->json(['errors' => [
+                'status' => '404',
+                'source' => [
+                    'pointer' => $_SERVER['REQUEST_URI']
+                ],
+                'details' => 'Resource not found.'
+            ]], 404);
+        }
+         return new projectResource(projects::findOrFail($id));
     }
 
 }

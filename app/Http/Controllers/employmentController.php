@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\employment;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\Employments as employmentsResource;
 use App\Http\Resources\Employment as employmentResource;
 
@@ -26,8 +27,20 @@ class employmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        return new employmentResource(employment::find($id));
+        {
+        try{
+            employment::findOrFail($id);     
+        }
+        catch(ModelNotFoundException $e){
+            return response()->json(['errors' => [
+                'status' => '404',
+                'source' => [
+                    'pointer' => $_SERVER['REQUEST_URI']
+                ],
+                'details' => 'Resource not found.'
+            ]], 404);
+        }
+        return new employmentResource(employment::findOrFail($id));
     }
 
 }

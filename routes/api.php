@@ -17,12 +17,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResources([
-    'personal-info' => 'personalInfoController',
-    'education' => 'educationController',
-    'education/id' => 'educationController',
-    'employment' => 'employmentController',
-    'employment/id' => 'employmentController',
-    'projects' => 'projectsController',
-    'projects/id' => 'projectsController'
+Route::resource('personal-info', 'personalInfoController')->only([
+    'index'
 ]);
+Route::resource('education', 'educationController')->only([
+    'index', 'show'
+]);
+Route::resource('employment', 'employmentController')->only([
+    'index', 'show'
+]);
+Route::resource('projects', 'projectsController')->only([
+    'index', 'show'
+]);
+
+Route::fallback(function(){
+    return response()->json(['errors' => [
+    'status' => '404',
+    'source' => [
+        'pointer' => $_SERVER['REQUEST_URI']
+    ],
+    'details' => 'Resource not found.'
+  ]], 404);
+});
