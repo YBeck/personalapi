@@ -3,8 +3,13 @@ info:
   title: Yochanan Beck api
   version: '1'
   description: get information about yochanan beck
+  contact:
+    name: 'Yochanan Beck Api'
+tags:
+  - name: 'Yochanan Beck Api'
+    description: 'get information about yochanan beck'
 servers:
-  - url: 'http://api.yochanan-beck.local'
+  - url: 'https://api.yochanan-beck.site'
 paths:
   /personal-info:
     get:
